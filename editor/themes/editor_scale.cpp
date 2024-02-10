@@ -30,12 +30,33 @@
 
 #include "editor_scale.h"
 
+// Static member initialization
 float EditorScale::_scale = 1.0f;
+const float EditorScale::MIN_SCALE = 0.1f; // Minimum scale value
+const float EditorScale::MAX_SCALE = 10.0f; // Maximum scale value
 
 void EditorScale::set_scale(float p_scale) {
-	_scale = p_scale;
+    // Clamp the value of p_scale to ensure it's within the min and max bounds
+    if (p_scale < MIN_SCALE) {
+        p_scale = MIN_SCALE;
+    } else if (p_scale > MAX_SCALE) {
+        p_scale = MAX_SCALE;
+    }
+    _scale = p_scale;
+    // Optionally, trigger an event or callback here to notify about the scale change
 }
 
 float EditorScale::get_scale() {
-	return _scale;
+    return _scale;
 }
+
+// Increment the scale by a fixed factor, ensuring it does not exceed MAX_SCALE
+void EditorScale::increase_scale(float factor) {
+    set_scale(_scale + factor);
+}
+
+// Decrement the scale by a fixed factor, ensuring it does not fall below MIN_SCALE
+void EditorScale::decrease_scale(float factor) {
+    set_scale(_scale - factor);
+}
+
