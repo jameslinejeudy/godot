@@ -32,13 +32,26 @@
 #define EDITOR_SCALE_H
 
 class EditorScale {
-	static float _scale;
+    static float _scale; // Static member to hold the scale value
+    static const float MIN_SCALE; // Minimum allowable scale value
+    static const float MAX_SCALE; // Maximum allowable scale value
 
 public:
-	static void set_scale(float p_scale);
-	static float get_scale();
+    // Sets the scale, ensuring it's within the min and max bounds
+    static void set_scale(float p_scale);
+
+    // Returns the current scale value
+    static float get_scale();
+
+    // Increases the scale by a given factor, with bounds checking
+    static void increase_scale(float factor);
+
+    // Decreases the scale by a given factor, with bounds checking
+    static void decrease_scale(float factor);
 };
 
+// Macro for easy access to the current scale value
 #define EDSCALE (EditorScale::get_scale())
 
 #endif // EDITOR_SCALE_H
+
